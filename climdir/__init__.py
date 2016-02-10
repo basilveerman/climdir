@@ -228,12 +228,7 @@ class Cmip5File:
         elif cmor_fname:
             self.__dict__.update(get_cmor_fname_meta(cmor_fname))
 
-        for k, v in kwargs.items():
-            if k not in ATTR_KEYS:
-                # Warn if passed in unknown kwargs
-                raise SyntaxWarning('Unknown arguments: {}'.format(kwargs.keys()))
-            else:
-                setattr(self, k, v)
+        self._update_known_atts(**kwargs)
 
     def __repr__(self):
         s = "Cmip5File("
@@ -247,6 +242,20 @@ class Cmip5File:
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def _update_known_atts(self, **kwargs):
+        for k, v in kwargs.items():
+            if k not in ATTR_KEYS:
+                # Warn if passed in unknown kwargs
+                raise SyntaxWarning('Unknown argument: {}'.format(k))
+            else:
+                setattr(self, k, v)
+
+    def update(self, **kwargs):
+        """Update the Cmip5File instance with new attributes.
+        """
+
+        self._update_known_atts(**kwargs)
 
     @property
     def cmor_fname(self):

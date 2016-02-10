@@ -15,6 +15,23 @@ def test_can_inst_cmip5file_from_cmor_fname(cmip5_cmor_fname):
 def test_can_inst_cmip5file_from_dict(cmip5_meta_dict):
     cf = Cmip5File(**cmip5_meta_dict)
 
+@pytest.mark.parametrize(('new_atts', 'expected'), [
+    (
+        {'variable_name': 'pr'},
+        'pr_Amon_HADCM3_decadal1990_r3i2p1.nc'
+    ), (
+        {'experiment': 'historical'},
+        'tas_Amon_HADCM3_historical_r3i2p1.nc'
+    ), (
+        {'mip_table': 'Ayr'},
+        'tas_Ayr_HADCM3_decadal1990_r3i2p1.nc'
+    )
+])
+def test_update_cmip5file(cmip5_cmor_fname, new_atts, expected):
+    cf = Cmip5File(cmor_fname = cmip5_cmor_fname)
+    cf.update(**new_atts)
+    assert cf.cmor_fname == expected
+
 ## Generate CMOR file name
 def test_cmor_fname_generate(cmip5_cmor_fname):
     cf = Cmip5File(cmor_fname = cmip5_cmor_fname)
