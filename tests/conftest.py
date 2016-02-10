@@ -11,4 +11,4 @@ def cmip5_datanode_fp():
 
 @pytest.fixture(scope='module')
 def cmip5_cmor_fname():
-    return 'tas_Amon_HADCM3_decadal1990_r3i2p1_199001-199012.nc'
+    return 'tas_Amon_HADCM3_decadal1990_r3i2p1.nc'
