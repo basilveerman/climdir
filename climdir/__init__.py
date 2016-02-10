@@ -219,13 +219,12 @@ class Cmip5File:
         elif cmor_fname:
             self.__dict__.update(get_cmor_fname_meta(cmor_fname))
 
-        for key in kwargs.keys():
-            if key in ATTR_KEYS:
-                setattr(self, key, kwargs.pop(key))
-
-        # Warn if passed in unknown kwargs
-        if kwargs:
-            raise SyntaxWarning('Unknown arguments: {}'.format(kwargs.keys()))
+        for k, v in kwargs.items():
+            if k not in ATTR_KEYS:
+                # Warn if passed in unknown kwargs
+                raise SyntaxWarning('Unknown arguments: {}'.format(kwargs.keys()))
+            else:
+                setattr(self, k, v)
 
     def __repr__(self):
         s = "Cmip5File("
