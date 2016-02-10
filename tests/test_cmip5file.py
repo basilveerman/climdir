@@ -74,21 +74,29 @@ def test_datanode_fp_generate_error(cmip5_datanode_fp):
     (
         'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc',
         {'t_end': '19810214'},
-        '19710201-19810214-avg'
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19810214-avg.nc'
     ), (
         'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc',
         {'t_start': '19610201'},
-        '19610201-19710214-avg'
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19610201-19710214-avg.nc'
     ), (
         'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc',
         {'temporal_suffix': 'clim'},
-        '19710201-19710214-clim'
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim_g-global-ocn-areaavg.nc',
+        {'temporal_subset': '199001-199012-clim', 'geographical_info': 'g-lat20S20Nlon170W130W'},
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_199001-199012-clim_g-lat20S20Nlon170W130W.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214.nc',
+        {'temporal_suffix': 'clim'},
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim.nc',
     )
 ])
-def test_temporal_subset_suffix(fname, new_atts, expected):
+def test_fname_temporal_geographic_suffix(fname, new_atts, expected):
     cf = Cmip5File(cmor_fname = fname)
     cf.update(**new_atts)
-    assert cf.temporal_subset == expected
+    assert cf.cmor_fname == expected
 
 
 def test_cmip5file_extra_attrs_error(cmip5_cmor_fp):

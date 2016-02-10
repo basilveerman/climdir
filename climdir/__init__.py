@@ -266,33 +266,45 @@ class Cmip5File(object):
     # Temporal subset elements
     @property
     def t_start(self):
-        return self.temporal_subset.split('-')[0]
+        if self.temporal_subset:
+            return self.temporal_subset.split('-')[0]
 
     @t_start.setter
     def t_start(self, value):
-        l = self.temporal_subset.split('-')
-        l[0] = value
-        self.temporal_subset = '-'.join(l)
+        if self.temporal_subset:
+            l = self.temporal_subset.split('-')
+            l[0] = value
+            self.temporal_subset = '-'.join(l)
 
     @property
     def t_end(self):
-        return self.temporal_subset.split('-')[1]
+        if self.temporal_subset:
+            return self.temporal_subset.split('-')[1]
 
     @t_end.setter
     def t_end(self, value):
-        l = self.temporal_subset.split('-')
-        l[1] = value
-        self.temporal_subset = '-'.join(l)
+        if self.temporal_subset:
+            l = self.temporal_subset.split('-')
+            l[1] = value
+            self.temporal_subset = '-'.join(l)
 
     @property
     def temporal_suffix(self):
-        return self.temporal_subset.split('-')[2]
+        if self.temporal_subset and len(self.temporal_subset.split('-')) > 2:
+            return self.temporal_subset.split('-')[2]
+        else:
+            return None
 
     @temporal_suffix.setter
     def temporal_suffix(self, value):
-        l = self.temporal_subset.split('-')
-        l[2] = value
-        self.temporal_subset = '-'.join(l)
+        if self.temporal_subset:
+            l = self.temporal_subset.split('-')
+            if self.temporal_suffix: # Replace temporal_suffix if exists, else append to temporal_subset
+                l[2] = value
+            else:
+                l.append(value)
+
+            self.temporal_subset = '-'.join(l)
 
     # Path generators
     @property
