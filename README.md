@@ -1,6 +1,6 @@
 # climdir
 
-![Travis CI](https://travis-ci.org/pacificclimate/climdir.svg?branch=master)
+[![Build Status](https://travis-ci.org/pacificclimate/climdir.svg?branch=master)](https://travis-ci.org/pacificclimate/climdir)
 [![Code Climate](https://codeclimate.com/github/pacificclimate/climdir/badges/gpa.svg)](https://codeclimate.com/github/pacificclimate/climdir)
 
 climdir is a basic utility for generating and parsing CMIP5 file paths.
