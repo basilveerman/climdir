@@ -82,3 +82,33 @@ def test_get_cmor_fname_meta_extended(fname, expected):
 
     for att, val in expected.items():
         assert meta[att] == val
+
+def test_can_inst_cmip5file_from_cmip5_cmor_fp(cmip5_cmor_fp):
+    cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
+
+def test_can_inst_cmip5file_from_cmip5_datanode_fp(cmip5_datanode_fp):
+    cf = Cmip5File(datanode_fp = cmip5_datanode_fp)
+
+def test_can_inst_cmip5file_from_cmor_fname(cmip5_cmor_fname):
+    cf = Cmip5File(cmor_fname = cmip5_cmor_fname)
+
+def test_can_inst_cmip5file_from_dict(cmip5_meta_dict):
+    cf = Cmip5File(**cmip5_meta_dict)
+
+def test_cmor_fname_generate(cmip5_cmor_fname):
+    cf = Cmip5File(cmor_fname = cmip5_cmor_fname)
+    assert cf.cmor_fname == cmip5_cmor_fname
+
+def test_cmor_fname_generate_error(cmip5_cmor_fname):
+    cf = Cmip5File(cmor_fname = cmip5_cmor_fname)
+    cf.__dict__.pop('model')
+    with pytest.raises(AttributeError):
+        assert cf.cmor_fname == cmip5_cmor_fname
+
+def test_cmip5file_extra_attrs_error(cmip5_cmor_fp):
+    with pytest.raises(SyntaxWarning):
+        cf = Cmip5File(cmor_fp=cmip5_cmor_fp, bad_arg='whoops')
+
+def test_cmip5file_repr(cmip5_cmor_fp):
+    cf = Cmip5File(cmip5_cmor_fp)
+    assert eval(repr(cf)) == cf

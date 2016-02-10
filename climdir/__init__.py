@@ -1,6 +1,23 @@
 # -*- coding: utf-8 -*-
 
 import os.path
+# import warnings
+
+ATTR_KEYS = [
+    'activity',
+    'product',
+    'institute',
+    'model',
+    'experiment',
+    'frequency',
+    'modeling_realm',
+    'mip_table',
+    'ensemble_member',
+    'version_number',
+    'variable_name',
+    'temporal_subset',
+    'geographical_info'
+]
 
 def get_cmor_fp_meta(fp):
     """Processes a CMOR style file path.
@@ -110,8 +127,8 @@ def get_cmor_fname_meta(fname):
 
     Section 3.3 of the `Data Reference Syntax`_ details:
 
-        filename = <variable name>_<MIP table>_<model>_<experiment>_
-            <ensemble member>[_<temporal subset>][_<geographical_info>].nc
+        filename = <variable name>_<mip_table>_<model>_<experiment>_
+            <ensemble_member>[_<temporal_subset>][_<geographical_info>].nc
 
     Temporal subsets are detailed in section 2.4:
 
@@ -185,7 +202,58 @@ class Cmip5File:
 
     """
 
-    def __init__(self, cmor_fp = None, datanode_fp = None, **kwargs):
+    def __init__(self,
+                 cmor_fp = None,
+                 datanode_fp = None,
+                 cmor_fname = None,
+                 **kwargs):
         """Initializes a Cmip5File.
+
         """
+
+        # Initialize with file path
+        if cmor_fp:
+            self.__dict__.update(get_cmor_fp_meta(cmor_fp))
+        elif datanode_fp:
+            self.__dict__.update(get_datanode_fp_meta(datanode_fp))
+        elif cmor_fname:
+            self.__dict__.update(get_cmor_fname_meta(cmor_fname))
+
+        for key in kwargs.keys():
+            if key in ATTR_KEYS:
+                setattr(self, key, kwargs.pop(key))
+
+        # Warn if passed in unknown kwargs
+        if kwargs:
+            raise SyntaxWarning('Unknown arguments: {}'.format(kwargs.keys()))
+
+    def __repr__(self):
+        s = "Cmip5File("
+        args = ", ".join(["{} = '{}'".format(k, v) for k, v in self.__dict__.items() if k in ATTR_KEYS])
+        s += args + ")"
+        return s
+
+    def __eq__(self, other):
+        return (isinstance(other, self.__class__)
+            and self.__dict__ == other.__dict__)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    @property
+    def cmor_fname(self):
+        required_atts = ['variable_name','mip_table','model','experiment','ensemble_member']
+        optional_atts = ['temporal_subset', 'geographical_info']
+
+        return '_'.join(
+            [getattr(self, x) for x in required_atts] +
+            [getattr(self, x) for x in optional_atts if x in self.__dict__]
+        ) + '.nc'
+
+    @property
+    def cmor_fp(self):
+        raise NotImplementedError
+
+    @property
+    def datanode_fp(self):
         raise NotImplementedError
