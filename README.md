@@ -21,3 +21,15 @@ pip install git+git://https://github.com/basilveerman/climdir#egg=climdir
 ```
 
 ## Usage
+
+To Document...
+
+## Documentation
+
+Generated using Sphinx
+
+```bash
+cd doc
+sphinx-apidoc -f -o source ..
+make html
+```
