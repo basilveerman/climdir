@@ -2,13 +2,6 @@ import pytest
 
 from climdir import Cmip5File, get_cmor_fp_meta, get_datanode_fp_meta, get_cmor_fname_meta
 
-# def test_cmip5file_from_cmor_fp(cmip5_cmor_fp):
-#     cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
-#     assert eval(repr(cf)) == cf
-
-# def test_cmip5file_from_datanode_fp(cmip5_datanode_fp):
-#     cf = Cmip5File(datanode_fp = cmip5_datanode_fp)
-
 def test_get_cmor_fp_meta(cmip5_cmor_fp):
     '/CMIP5/output/MOHC/HadCM3/decadal1990/day/atmos/tas/r3i2p1/file.nc'
     meta = get_cmor_fp_meta(cmip5_cmor_fp)
@@ -83,6 +76,7 @@ def test_get_cmor_fname_meta_extended(fname, expected):
     for att, val in expected.items():
         assert meta[att] == val
 
+## Cmip5File instantiation
 def test_can_inst_cmip5file_from_cmip5_cmor_fp(cmip5_cmor_fp):
     cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
 
@@ -95,6 +89,7 @@ def test_can_inst_cmip5file_from_cmor_fname(cmip5_cmor_fname):
 def test_can_inst_cmip5file_from_dict(cmip5_meta_dict):
     cf = Cmip5File(**cmip5_meta_dict)
 
+## Generate CMOR file name
 def test_cmor_fname_generate(cmip5_cmor_fname):
     cf = Cmip5File(cmor_fname = cmip5_cmor_fname)
     assert cf.cmor_fname == cmip5_cmor_fname
@@ -104,6 +99,28 @@ def test_cmor_fname_generate_error(cmip5_cmor_fname):
     cf.__dict__.pop('model')
     with pytest.raises(AttributeError):
         assert cf.cmor_fname == cmip5_cmor_fname
+
+## Generate CMOR file path
+def test_cmor_fp_generate(cmip5_cmor_fp):
+    cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
+    assert cf.cmor_fp in cmip5_cmor_fp
+
+def test_cmor_fp_generate_error(cmip5_cmor_fp):
+    cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
+    cf.__dict__.pop('model')
+    with pytest.raises(AttributeError):
+        assert cf.cmor_fp in cmip5_cmor_fp
+
+## Generate datanode CMOR file path
+def test_datanode_fp_generate(cmip5_datanode_fp):
+    cf = Cmip5File(datanode_fp = cmip5_datanode_fp)
+    assert cf.datanode_fp in cmip5_datanode_fp
+
+def test_datanode_fp_generate_error(cmip5_datanode_fp):
+    cf = Cmip5File(datanode_fp = cmip5_datanode_fp)
+    cf.__dict__.pop('model')
+    with pytest.raises(AttributeError):
+        assert cf.datanode_fp in cmip5_datanode_fp
 
 def test_cmip5file_extra_attrs_error(cmip5_cmor_fp):
     with pytest.raises(SyntaxWarning):

@@ -252,6 +252,7 @@ class Cmip5File:
     def cmor_fname(self):
         """Generates a CMOR filename from object attributes.
         """
+
         return '_'.join(
             [getattr(self, x) for x in CMOR_FNAME_REQUIRED_ATTS] +
             [getattr(self, x) for x in CMOR_FNAME_OPTIONAL_ATTS if x in self.__dict__]
@@ -259,8 +260,14 @@ class Cmip5File:
 
     @property
     def cmor_fp(self):
-        raise NotImplementedError
+        """Generates a standard CMOR file path from object attributes
+        """
+
+        return os.path.join(*[getattr(self, x) for x in CMOR_FP_ATTS] + [self.cmor_fname])
 
     @property
     def datanode_fp(self):
-        raise NotImplementedError
+        """Generates a datanode extended CMOR file path from object attributes
+        """
+
+        return os.path.join(*[getattr(self, x) for x in DATANODE_FP_ATTS] + [self.cmor_fname])
