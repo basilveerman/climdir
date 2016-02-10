@@ -70,6 +70,27 @@ def test_datanode_fp_generate_error(cmip5_datanode_fp):
     with pytest.raises(AttributeError):
         assert cf.datanode_fp in cmip5_datanode_fp
 
+@pytest.mark.parametrize(('fname', 'new_atts', 'expected'), [
+    (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc',
+        {'t_end': '19810214'},
+        '19710201-19810214-avg'
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc',
+        {'t_start': '19610201'},
+        '19610201-19710214-avg'
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc',
+        {'temporal_suffix': 'clim'},
+        '19710201-19710214-clim'
+    )
+])
+def test_temporal_subset_suffix(fname, new_atts, expected):
+    cf = Cmip5File(cmor_fname = fname)
+    cf.update(**new_atts)
+    assert cf.temporal_subset == expected
+
+
 def test_cmip5file_extra_attrs_error(cmip5_cmor_fp):
     with pytest.raises(SyntaxWarning):
         cf = Cmip5File(cmor_fp=cmip5_cmor_fp, bad_arg='whoops')

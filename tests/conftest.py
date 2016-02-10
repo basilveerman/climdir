@@ -14,6 +14,18 @@ def cmip5_cmor_fname():
     return 'tas_Amon_HADCM3_decadal1990_r3i2p1.nc'
 
 @pytest.fixture(scope='module')
+def cmip5_cmor_fname_temporal_suffix():
+    return 'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-avg.nc.nc'
+
+@pytest.fixture(scope='module')
+def cmip5_cmor_fname_geographical_info():
+    return 'tas_Amon_HADCM3_decadal1990_r3i2p1_g-lat20S20Nlon170W130W.nc'
+
+@pytest.fixture(scope='module')
+def cmip5_cmor_fname_temporal_geographical_suffix():
+    return 'tas_Amon_HADCM3_decadal1990_r3i2p1_199001-199012-clim_g-global-ocn-areaavg.nc'
+
+@pytest.fixture(scope='module')
 def cmip5_meta_dict():
     return {
         'activity': 'CMIP5',

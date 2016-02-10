@@ -17,7 +17,10 @@ ATTR_KEYS = [
     'version_number',
     'variable_name',
     'temporal_subset',
-    'geographical_info'
+    'geographical_info',
+    't_start',
+    't_end',
+    'temporal_suffix'
 ]
 
 CMOR_FNAME_REQUIRED_ATTS = ['variable_name','mip_table','model','experiment','ensemble_member']
@@ -194,7 +197,7 @@ def get_cmor_fname_meta(fname):
 
     return res
 
-class Cmip5File:
+class Cmip5File(object):
     """Represents a Cmip5File.
 
     .. _Metadata Requirements:
@@ -245,6 +248,8 @@ class Cmip5File:
         return not self.__eq__(other)
 
     def _update_known_atts(self, **kwargs):
+        """Updates instance attributes with supplied keyword arguments
+        """
         for k, v in kwargs.items():
             if k not in ATTR_KEYS:
                 # Warn if passed in unknown kwargs
@@ -258,6 +263,38 @@ class Cmip5File:
 
         self._update_known_atts(**kwargs)
 
+    # Temporal subset elements
+    @property
+    def t_start(self):
+        return self.temporal_subset.split('-')[0]
+
+    @t_start.setter
+    def t_start(self, value):
+        l = self.temporal_subset.split('-')
+        l[0] = value
+        self.temporal_subset = '-'.join(l)
+
+    @property
+    def t_end(self):
+        return self.temporal_subset.split('-')[1]
+
+    @t_end.setter
+    def t_end(self, value):
+        l = self.temporal_subset.split('-')
+        l[1] = value
+        self.temporal_subset = '-'.join(l)
+
+    @property
+    def temporal_suffix(self):
+        return self.temporal_subset.split('-')[2]
+
+    @temporal_suffix.setter
+    def temporal_suffix(self, value):
+        l = self.temporal_subset.split('-')
+        l[2] = value
+        self.temporal_subset = '-'.join(l)
+
+    # Path generators
     @property
     def cmor_fname(self):
         """Generates a CMOR filename from object attributes.
