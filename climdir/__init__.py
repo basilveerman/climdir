@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os.path
-# import warnings
+
+from .exceptions import PathError
 
 ATTR_KEYS = [
     'activity',
@@ -82,7 +83,7 @@ def get_cmor_fp_meta(fp):
         for key in directory_meta:
             res[key] = meta.pop()
     except IndexError:
-        raise Exception('Directory structure {} does not match CMOR spec'.format(dirname))
+        raise PathError(dirname)
 
     # Prefer meta extracted from filename
     res.update(get_cmor_fname_meta(basename))
@@ -124,7 +125,7 @@ def get_datanode_fp_meta(fp):
         for key in directory_meta:
             res[key] = meta.pop()
     except IndexError:
-        raise Exception('Directory structure {} does not match CMOR spec'.format(dirname))
+        raise PathError(dirname)
 
     # Prefer meta extracted from filename
     res.update(get_cmor_fname_meta(basename))
@@ -177,11 +178,11 @@ def get_cmor_fname_meta(fname):
         for key in mandatory_meta:
             res[key] = meta.pop(0)
     except IndexError:
-        raise Exception('Filename {} does not match CMOR spec'.format(fname))
+        raise PathError(fname)
 
     # Determine presence and order of optional metadata
     if len(meta) > 2:
-        raise Exception('Filename {} does not match CMOR spec'.format(fname))
+        raise PathError(fname)
 
     is_geo = lambda x: x[0] == 'g'
 

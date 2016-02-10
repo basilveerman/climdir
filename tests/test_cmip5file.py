@@ -1,6 +1,7 @@
 import pytest
 
 from climdir import Cmip5File
+from climdir.exceptions import PathError
 
 ## Cmip5File instantiation
 def test_can_inst_cmip5file_from_cmip5_cmor_fp(cmip5_cmor_fp):
@@ -14,6 +15,10 @@ def test_can_inst_cmip5file_from_cmor_fname(cmip5_cmor_fname):
 
 def test_can_inst_cmip5file_from_dict(cmip5_meta_dict):
     cf = Cmip5File(**cmip5_meta_dict)
+
+def test_bad_cmip5file_inst(cmip5_cmor_fname):
+    with pytest.raises(PathError):
+        cf = Cmip5File(datanode_fp = cmip5_cmor_fname) # Incorrect key
 
 @pytest.mark.parametrize(('new_atts', 'expected'), [
     (
