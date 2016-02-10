@@ -4,15 +4,106 @@ import os.path
 
 def get_cmor_fp_meta(fp):
     """Processes a CMOR style file path.
+
+    Section 3.1 of the `Data Reference Syntax`_ details:
+
+        The standard CMIP5 output tool CMOR optionally writes output files
+        to a directory structure mapping DRS components to directory names as:
+            <activity>/<product>/<institute>/<model>/<experiment>/<frequency>/
+            <modeling_realm>/<variable_name>/<ensemble_member>/<CMOR filename>.nc
+
+    Arguments:
+        fp (str): A file path conforming to DRS spec.
+
+    Returns:
+        dict: Metadata as extracted from the file path.
+
+    .. _Data Reference Syntax:
+       http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
 
-    return {}
+    directory_meta = [
+        'activity',
+        'product',
+        'institute',
+        'model',
+        'experiment',
+        'frequency',
+        'modeling_realm',
+        'variable_name',
+        'ensemble_member',
+    ]
+
+    dirname, basename = os.path.split(fp)
+    meta = dirname.split('/')
+
+    res = {}
+
+    # Extract meta starting at end of array
+    directory_meta.reverse()
+    try:
+        for key in directory_meta:
+            res[key] = meta.pop()
+    except IndexError:
+        raise Exception('Directory structure {} does not match CMOR spec'.format(dirname))
+
+    # Prefer meta extracted from filename
+    res.update(get_cmor_fname_meta(basename))
+
+    return res
 
 def get_datanode_fp_meta(fp):
     """Processes a datanode style file path.
+
+    Section 3.2 of the `Data Reference Syntax`_ details:
+
+        It is recommended that ESGF data nodes should layout datasets
+        on disk mapping DRS components to directories as:
+            <activity>/<product>/<institute>/<model>/<experiment>/
+            <frequency>/<modeling_realm>/<mip_table>/<ensemble_member>/
+            <version_number>/<variable_name>/<CMOR filename>.nc
+
+    Arguments:
+        fp (str): A file path conforming to DRS spec.
+
+    Returns:
+        dict: Metadata as extracted from the file path.
+
+    .. _Data Reference Syntax:
+       http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
 
-    return {}
+    directory_meta = [
+        'activity',
+        'product',
+        'institute',
+        'model',
+        'experiment',
+        'frequency',
+        'modeling_realm',
+        'mip_table',
+        'ensemble_member',
+        'version_number',
+        'variable_name',
+    ]
+
+    dirname, basename = os.path.split(fp)
+    meta = dirname.split('/')
+
+    res = {}
+
+    # Extract meta starting at end of array
+    directory_meta.reverse()
+    try:
+        for key in directory_meta:
+            res[key] = meta.pop()
+    except IndexError:
+        raise Exception('Directory structure {} does not match CMOR spec'.format(dirname))
+
+    # Prefer meta extracted from filename
+    res.update(get_cmor_fname_meta(basename))
+
+    return res
 
 def get_cmor_fname_meta(fname):
     """Processes a CMOR style file name.
@@ -60,11 +151,11 @@ def get_cmor_fname_meta(fname):
         for key in mandatory_meta:
             res[key] = meta.pop(0)
     except IndexError:
-        raise Exception('Filename {} does not match CMOR spec')
+        raise Exception('Filename {} does not match CMOR spec'.format(fname))
 
     # Determine presence and order of optional metadata
     if len(meta) > 2:
-        raise Exception('Filename {} does not match CMOR spec')
+        raise Exception('Filename {} does not match CMOR spec'.format(fname))
 
     is_geo = lambda x: x[0] == 'g'
 
