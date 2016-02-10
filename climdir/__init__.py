@@ -19,6 +19,35 @@ ATTR_KEYS = [
     'geographical_info'
 ]
 
+CMOR_FNAME_REQUIRED_ATTS = ['variable_name','mip_table','model','experiment','ensemble_member']
+CMOR_FNAME_OPTIONAL_ATTS = ['temporal_subset', 'geographical_info']
+
+CMOR_FP_ATTS = [
+    'activity',
+    'product',
+    'institute',
+    'model',
+    'experiment',
+    'frequency',
+    'modeling_realm',
+    'variable_name',
+    'ensemble_member',
+]
+
+DATANODE_FP_ATTS = [
+    'activity',
+    'product',
+    'institute',
+    'model',
+    'experiment',
+    'frequency',
+    'modeling_realm',
+    'mip_table',
+    'ensemble_member',
+    'version_number',
+    'variable_name',
+]
+
 def get_cmor_fp_meta(fp):
     """Processes a CMOR style file path.
 
@@ -39,17 +68,8 @@ def get_cmor_fp_meta(fp):
        http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
 
-    directory_meta = [
-        'activity',
-        'product',
-        'institute',
-        'model',
-        'experiment',
-        'frequency',
-        'modeling_realm',
-        'variable_name',
-        'ensemble_member',
-    ]
+    # Copy metadata list since it will be modified
+    directory_meta = list(CMOR_FP_ATTS)
 
     dirname, basename = os.path.split(fp)
     meta = dirname.split('/')
@@ -90,19 +110,8 @@ def get_datanode_fp_meta(fp):
        http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
 
-    directory_meta = [
-        'activity',
-        'product',
-        'institute',
-        'model',
-        'experiment',
-        'frequency',
-        'modeling_realm',
-        'mip_table',
-        'ensemble_member',
-        'version_number',
-        'variable_name',
-    ]
+    # Copy metadata list since it will be modified
+    directory_meta = list(DATANODE_FP_ATTS)
 
     dirname, basename = os.path.split(fp)
     meta = dirname.split('/')
@@ -241,12 +250,11 @@ class Cmip5File:
 
     @property
     def cmor_fname(self):
-        required_atts = ['variable_name','mip_table','model','experiment','ensemble_member']
-        optional_atts = ['temporal_subset', 'geographical_info']
-
+        """Generates a CMOR filename from object attributes.
+        """
         return '_'.join(
-            [getattr(self, x) for x in required_atts] +
-            [getattr(self, x) for x in optional_atts if x in self.__dict__]
+            [getattr(self, x) for x in CMOR_FNAME_REQUIRED_ATTS] +
+            [getattr(self, x) for x in CMOR_FNAME_OPTIONAL_ATTS if x in self.__dict__]
         ) + '.nc'
 
     @property
