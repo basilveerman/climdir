@@ -31,26 +31,11 @@ def get_cmor_fp_meta(fp):
        http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
 
-    # Copy metadata list since it will be modified
+    # Copy metadata list then reverse to start at end of path
     directory_meta = list(climdir.CMOR_FP_ATTS)
-
-    dirname, basename = os.path.split(fp)
-    meta = dirname.split('/')
-
-    res = {}
-
-    # Extract meta starting at end of array
     directory_meta.reverse()
-    try:
-        for key in directory_meta:
-            res[key] = meta.pop()
-    except IndexError:
-        raise PathError(dirname)
 
-    # Prefer meta extracted from filename
-    res.update(get_cmor_fname_meta(basename))
-
-    return res
+    return get_cmor_dir_meta(fp, directory_meta)
 
 def get_datanode_fp_meta(fp):
     """Processes a datanode style file path.
@@ -73,18 +58,23 @@ def get_datanode_fp_meta(fp):
        http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
 
-    # Copy metadata list since it will be modified
+    # Copy metadata list then reverse to start at end of path
     directory_meta = list(climdir.DATANODE_FP_ATTS)
+    directory_meta.reverse()
+
+    return get_cmor_dir_meta(fp, directory_meta)
+
+def get_cmor_dir_meta(fp, atts):
+    """Pop path information and map to supplied atts
+    """
 
     dirname, basename = os.path.split(fp)
     meta = dirname.split('/')
 
     res = {}
 
-    # Extract meta starting at end of array
-    directory_meta.reverse()
     try:
-        for key in directory_meta:
+        for key in atts:
             res[key] = meta.pop()
     except IndexError:
         raise PathError(dirname)

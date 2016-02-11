@@ -136,6 +136,12 @@ class Cmip5File(object):
         self._update_known_atts(**{k: False for k in args})
 
     # Temporal subset elements
+    def set_timeval(self, index, value):
+        if self.temporal_subset:
+            l = self.temporal_subset.split('-')
+            l[index] = value
+            self.temporal_subset = '-'.join(l)
+
     @property
     def t_start(self):
         if self.temporal_subset:
@@ -143,10 +149,7 @@ class Cmip5File(object):
 
     @t_start.setter
     def t_start(self, value):
-        if self.temporal_subset:
-            l = self.temporal_subset.split('-')
-            l[0] = value
-            self.temporal_subset = '-'.join(l)
+        self.set_timeval(0, value)
 
     @property
     def t_end(self):
@@ -155,10 +158,7 @@ class Cmip5File(object):
 
     @t_end.setter
     def t_end(self, value):
-        if self.temporal_subset:
-            l = self.temporal_subset.split('-')
-            l[1] = value
-            self.temporal_subset = '-'.join(l)
+        self.set_timeval(1, value)
 
     @property
     def temporal_suffix(self):
@@ -189,16 +189,22 @@ class Cmip5File(object):
             [getattr(self, x) for x in CMOR_FNAME_OPTIONAL_ATTS if x in self.__dict__]
         ) + '.nc'
 
+    def get_joined_file_path(self, atts):
+        """Returns a joined path populated with the supplied attribute names
+        """
+
+        return os.path.join(*[getattr(self, x) for x in atts] + [self.cmor_fname])
+
     @property
     def cmor_fp(self):
         """Generates a standard CMOR file path from object attributes
         """
 
-        return os.path.join(*[getattr(self, x) for x in CMOR_FP_ATTS] + [self.cmor_fname])
+        return self.get_joined_file_path(CMOR_FP_ATTS)
 
     @property
     def datanode_fp(self):
         """Generates a datanode extended CMOR file path from object attributes
         """
 
-        return os.path.join(*[getattr(self, x) for x in DATANODE_FP_ATTS] + [self.cmor_fname])
+        return self.get_joined_file_path(DATANODE_FP_ATTS)
