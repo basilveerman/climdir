@@ -37,6 +37,50 @@ def test_update_cmip5file(cmip5_cmor_fname, new_atts, expected):
     cf.update(**new_atts)
     assert cf.cmor_fname == expected
 
+@pytest.mark.parametrize(('fname', 'new_atts', 'expected'), [
+    (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim_g-global-ocn-areaavg.nc',
+        {'geographical_info': None},
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim_g-global-ocn-areaavg.nc',
+        {'temporal_subset': None},
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_g-global-ocn-areaavg.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim.nc',
+        {'temporal_subset': ''},
+        'tas_Amon_HADCM3_decadal1990_r3i2p1.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim.nc',
+        {'temporal_subset': False},
+        'tas_Amon_HADCM3_decadal1990_r3i2p1.nc',
+    )
+])
+def test_update_falsey_att_cmip5file(fname, new_atts, expected):
+    cf = Cmip5File(cmor_fname = fname)
+    cf.update(**new_atts)
+    assert cf.cmor_fname == expected
+
+@pytest.mark.parametrize(('fname', 'atts_to_del', 'expected'), [
+    (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim_g-global-ocn-areaavg.nc',
+        ['geographical_info'],
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim_g-global-ocn-areaavg.nc',
+        ['temporal_subset'],
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_g-global-ocn-areaavg.nc',
+    ), (
+        'tas_Amon_HADCM3_decadal1990_r3i2p1_19710201-19710214-clim_g-global-ocn-areaavg.nc',
+        ['temporal_subset', 'geographical_info'],
+        'tas_Amon_HADCM3_decadal1990_r3i2p1.nc',
+    )
+])
+def test_delete_att_cmip5file(fname, atts_to_del, expected):
+    cf = Cmip5File(cmor_fname = fname)
+    cf.delete(*atts_to_del)
+    assert cf.cmor_fname == expected
+
 ## Generate CMOR file name
 def test_cmor_fname_generate(cmip5_cmor_fname):
     cf = Cmip5File(cmor_fname = cmip5_cmor_fname)

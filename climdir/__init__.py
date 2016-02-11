@@ -248,20 +248,36 @@ class Cmip5File(object):
         return not self.__eq__(other)
 
     def _update_known_atts(self, **kwargs):
-        """Updates instance attributes with supplied keyword arguments
+        """Updates instance attributes with supplied keyword arguments.
         """
         for k, v in kwargs.items():
             if k not in ATTR_KEYS:
                 # Warn if passed in unknown kwargs
                 raise SyntaxWarning('Unknown argument: {}'.format(k))
+            elif not v: # Delete attributes with falsey values
+                delattr(self, k)
             else:
                 setattr(self, k, v)
 
     def update(self, **kwargs):
-        """Update the Cmip5File instance with new attributes.
+        """Updates instance attributes with supplied keyword arguments.
+
+        If a supplied value is falsey, the attribute will be deleted.
+
+        Arguments:
+            **kwargs (dict): keyword arguments to update instance with
+
+        Raises:
+            SyntaxWarning: If a supplied key is not recognized as valid metadata
         """
 
         self._update_known_atts(**kwargs)
+
+    def delete(self, *args):
+        """Delete instance metadata by attribute name.
+        """
+
+        self._update_known_atts(**{k: False for k in args})
 
     # Temporal subset elements
     @property
