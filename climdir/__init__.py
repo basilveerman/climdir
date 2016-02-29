@@ -53,42 +53,10 @@ DATANODE_FP_ATTS = [
     'variable_name',
 ]
 
-class Cmip5File(object):
-    """Represents a Cmip5File.
-
-    .. _Metadata Requirements:
-       http://cmip-pcmdi.llnl.gov/cmip5/docs/CMIP5_output_metadata_requirements.pdf
-    .. _Data Reference Syntax:
-       http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
-    .. _Standard Output (CMOR Tables):
-       http://cmip-pcmdi.llnl.gov/cmip5/docs/standard_output.pdf
-
-    Metadata is parsed based on interpreting the following documentation as best as possible::
-
-    - `Metadata requirements`_
-    - `Data Reference Syntax`_
-    - `Standard Output (CMOR Tables)`_
-
-    """
-
-    def __init__(self,
-                 cmor_fp = None,
-                 datanode_fp = None,
-                 cmor_fname = None,
-                 **kwargs):
-        """Initializes a Cmip5File.
-
-        """
-
-        # Initialize with file path
-        if cmor_fp:
-            self.__dict__.update(get_cmor_fp_meta(cmor_fp))
-        elif datanode_fp:
-            self.__dict__.update(get_datanode_fp_meta(datanode_fp))
-        elif cmor_fname:
-            self.__dict__.update(get_cmor_fname_meta(cmor_fname))
-
-        self._update_known_atts(**kwargs)
+class CmipFile(object):
+    def __init__(self, **kwargs):
+        print kwargs
+        self.update(**kwargs)
 
     def __repr__(self):
         s = "Cmip5File("
@@ -178,33 +146,80 @@ class Cmip5File(object):
 
             self.temporal_subset = '-'.join(l)
 
+    def get_joined_dir_name(self, atts):
+        """Returns a joined path populated with the supplied attribute names
+        """
+
+        return os.path.join(*[getattr(self, x) for x in atts])
+
+    def get_joined_file_name(self, atts, optional_atts = None):
+        """Returns a joined path populated with the supplied attribute names
+        """
+
+        return '_'.join(
+            [getattr(self, x) for x in atts] +
+            [getattr(self, x) for x in optional_atts if x in self.__dict__]
+        ) + '.nc'
+
+class Cmip5File(CmipFile):
+    """Represents a Cmip5File.
+
+    Metadata is parsed based on interpreting the following documentation as best as possible:
+
+    - `Metadata requirements`_
+    - `Data Reference Syntax`_
+    - `Standard Output (CMOR Tables)`_
+
+    .. _Metadata Requirements:
+       http://cmip-pcmdi.llnl.gov/cmip5/docs/CMIP5_output_metadata_requirements.pdf
+    .. _Data Reference Syntax:
+       http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
+    .. _Standard Output (CMOR Tables):
+       http://cmip-pcmdi.llnl.gov/cmip5/docs/standard_output.pdf
+
+    """
+
+    def __init__(self,
+                 cmor_fp = None,
+                 datanode_fp = None,
+                 cmor_fname = None,
+                 **kwargs):
+        """Initializes a Cmip5File.
+
+        """
+
+        meta = {}
+
+        # Initialize with file path
+        if cmor_fp:
+            meta.update(get_cmor_fp_meta(cmor_fp))
+        elif datanode_fp:
+            meta.update(get_datanode_fp_meta(datanode_fp))
+        elif cmor_fname:
+            meta.update(get_cmor_fname_meta(cmor_fname))
+
+        meta.update(kwargs)
+
+        super(Cmip5File, self).__init__(**meta)
+
     # Path generators
     @property
     def cmor_fname(self):
         """Generates a CMOR filename from object attributes.
         """
 
-        return '_'.join(
-            [getattr(self, x) for x in CMOR_FNAME_REQUIRED_ATTS] +
-            [getattr(self, x) for x in CMOR_FNAME_OPTIONAL_ATTS if x in self.__dict__]
-        ) + '.nc'
-
-    def get_joined_file_path(self, atts):
-        """Returns a joined path populated with the supplied attribute names
-        """
-
-        return os.path.join(*[getattr(self, x) for x in atts] + [self.cmor_fname])
+        return self.get_joined_file_name(CMOR_FNAME_REQUIRED_ATTS, CMOR_FNAME_OPTIONAL_ATTS)
 
     @property
     def cmor_fp(self):
         """Generates a standard CMOR file path from object attributes
         """
 
-        return self.get_joined_file_path(CMOR_FP_ATTS)
+        return self.get_joined_dir_name(CMOR_FP_ATTS)
 
     @property
     def datanode_fp(self):
         """Generates a datanode extended CMOR file path from object attributes
         """
 
-        return self.get_joined_file_path(DATANODE_FP_ATTS)
+        return self.get_joined_dir_name(DATANODE_FP_ATTS)
