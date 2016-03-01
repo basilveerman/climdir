@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 __version__ = (0, 0, 1)
 
 setup(
-    name = "climdir",
+    name = "cmme",
     version ='.'.join(str(d) for d in __version__),
     author = "Basil Veerman",
     author_email = "bveerman@uvic.ca",

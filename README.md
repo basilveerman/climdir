@@ -1,26 +1,26 @@
-# climdir
+# cmme
 
-[![Build Status](https://travis-ci.org/pacificclimate/climdir.svg?branch=master)](https://travis-ci.org/pacificclimate/climdir)
-[![Code Climate](https://codeclimate.com/github/pacificclimate/climdir/badges/gpa.svg)](https://codeclimate.com/github/pacificclimate/climdir)
+[![Build Status](https://travis-ci.org/pacificclimate/cmme.svg?branch=master)](https://travis-ci.org/pacificclimate/cmme)
+[![Code Climate](https://codeclimate.com/github/pacificclimate/cmme/badges/gpa.svg)](https://codeclimate.com/github/pacificclimate/cmme)
 
-climdir is a basic utility for generating and parsing CMIP5 file paths.
+cmme is a basic utility for generating and parsing CMIP5 file paths.
 
 ## Requirements
 
-For basic functionality climdir has no special requirements.  The `netCDF` option requires the [netCDF4](http://unidata.github.io/netcdf4-python/) package.
+For basic functionality cmme has no special requirements.  The `netCDF` option requires the [netCDF4](http://unidata.github.io/netcdf4-python/) package.
 
-## Installing climdir
+## Installing cmme
 
-climdir can be installed from the Python package index:
+cmme can be installed from the Python package index:
 
 ```bash
-pip install climdir[netCDF]
+pip install cmme[netCDF]
 ```
 
 from Github:
 
 ```bash
-pip install git+git://https://github.com/basilveerman/climdir#egg=climdir
+pip install git+git://https://github.com/basilveerman/cmme#egg=cmme
 ```
 
 ## Usage

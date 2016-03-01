@@ -1,4 +1,4 @@
-"""Module with custom exceptions for climdir.
+"""Module with custom exceptions for cmme.
 """
 
 class PathError(Exception):

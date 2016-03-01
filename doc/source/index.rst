@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-climdir
-=======
+cmme - Climate Model Metadata Extractor
+=======================================
 
-.. automodule:: climdir
+.. automodule:: cmme
 
 Usage
 -----

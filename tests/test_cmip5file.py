@@ -1,7 +1,7 @@
 import pytest
 
-from climdir import Cmip5File
-from climdir.exceptions import PathError
+from cmme import Cmip5File
+from cmme.exceptions import PathError
 
 ## Cmip5File instantiation
 def test_can_inst_cmip5file_from_cmip5_cmor_fp(cmip5_cmor_fp):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# climdir documentation build configuration file, created by
+# cmme documentation build configuration file, created by
 # sphinx-quickstart on Tue Feb  9 18:51:01 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'climdir'
+project = u'cmme'
 copyright = u'2016, Basil Veerman'
 author = u'Basil Veerman'
 
@@ -60,7 +60,7 @@ author = u'Basil Veerman'
 from pkg_resources import resource_filename, get_distribution
 
 # The full version, including alpha/beta/rc tags.
-release = get_distribution('climdir').version
+release = get_distribution('cmme').version
 # The short X.Y version.
 version = release.rsplit('.', 1)[0]
 
@@ -205,7 +205,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'climdirdoc'
+htmlhelp_basename = 'cmmedoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -227,7 +227,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'climdir.tex', u'climdir Documentation',
+    (master_doc, 'cmme.tex', u'cmme Documentation',
      u'Basil Veerman', 'manual'),
 ]
 
@@ -257,7 +257,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'climdir', u'climdir Documentation',
+    (master_doc, 'cmme', u'cmme Documentation',
      [author], 1)
 ]
 
@@ -271,8 +271,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'climdir', u'climdir Documentation',
-     author, 'climdir', 'One line description of project.',
+    (master_doc, 'cmme', u'cmme Documentation',
+     author, 'cmme', 'One line description of project.',
      'Miscellaneous'),
 ]
 
