@@ -1,7 +1,7 @@
 # cmme
 
 [![Build Status](https://travis-ci.org/pacificclimate/cmme.svg?branch=master)](https://travis-ci.org/pacificclimate/cmme)
-[![Code Climate](https://codeclimate.com/github/pacificclimate/cmme/badges/gpa.svg)](https://codeclimate.com/github/pacificclimate/cmme)
+[![Code Health](https://landscape.io/github/pacificclimate/cmme/master/landscape.svg?style=flat)](https://landscape.io/github/pacificclimate/cmme/master)
 
 cmme is a basic utility for generating and parsing CMIP5 file paths.
 
