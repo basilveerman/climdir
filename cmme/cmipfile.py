@@ -25,7 +25,7 @@ class CmipFile(object):
         self.update(**kwargs)
 
     def __repr__(self):
-        s = "Cmip5File("
+        s = self.__class__.__name__ + "("
         args = ", ".join(["{} = '{}'".format(k, v) for k, v in self.__dict__.items() if k in ATTR_KEYS])
         s += args + ")"
         return s
@@ -68,6 +68,10 @@ class CmipFile(object):
         """
 
         self._update_known_atts(**{k: False for k in args})
+
+    @property
+    def atts(self):
+        return {k: v for k, v in self.__dict__.items() if k in ATTR_KEYS}
 
     # Temporal subset elements
     def set_timeval(self, index, value):
