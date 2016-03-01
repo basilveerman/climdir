@@ -42,6 +42,33 @@ class Cmip3File(CmipFile):
 
         super(Cmip3File, self).__init__(**meta)
 
+    def get_joined_file_name(self, atts):
+        """Returns a joined path populated with the supplied attribute names
+
+        """
+
+        return '-'.join([getattr(self, x) for x in atts]) + '.nc'
+
+    # Path generators
+    @property
+    def fname(self):
+        """Generates a CMOR filename from object attributes.
+        """
+
+        return self.get_joined_file_name(FNAME_ATTS)
+
+    @property
+    def dirname(self):
+        """Generates a standard CMOR file path from object attributes
+        """
+
+        return self.get_joined_dir_name(DIR_ATTS)
+
+    @property
+    def fp(self):
+        return os.path.join(self.dirname, self.fname)
+
+
 def get_fp_meta(fp):
     """Processes a CMIP3 style file path.
 
