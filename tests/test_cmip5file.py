@@ -20,6 +20,18 @@ def test_bad_cmip5file_inst(cmip5_cmor_fname):
     with pytest.raises(PathError):
         cf = Cmip5File(datanode_fp = cmip5_cmor_fname) # Incorrect key
 
+def test_can_generate_cmip5_cmor_dirname(cmip5_cmor_fp):
+    cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
+    assert cf.cmor_dirname == 'CMIP5/output/MOHC/HadCM3/decadal1990/day/atmos/tas/r3i2p1'
+
+def test_can_generate_cmip5_cmor_fname(cmip5_cmor_fp):
+    cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
+    assert cf.cmor_fname == 'tas_day_HadCM3_decadal1990_r3i2p1_199001-199012.nc'
+
+def test_can_generate_cmip5_cmor_fp(cmip5_cmor_fp):
+    cf = Cmip5File(cmor_fp = cmip5_cmor_fp)
+    assert cf.cmor_fp == 'CMIP5/output/MOHC/HadCM3/decadal1990/day/atmos/tas/r3i2p1/tas_day_HadCM3_decadal1990_r3i2p1_199001-199012.nc'
+
 @pytest.mark.parametrize(('new_atts', 'expected'), [
     (
         {'variable_name': 'pr'},

@@ -94,18 +94,32 @@ class Cmip5File(CmipFile):
         return self.get_joined_file_name(CMIP5_FNAME_REQUIRED_ATTS, CMIP5_FNAME_OPTIONAL_ATTS)
 
     @property
-    def cmor_fp(self):
-        """Generates a standard CMOR file path from object attributes
+    def cmor_dirname(self):
+        """Generates a CMOR directory path from object attributes
         """
 
         return self.get_joined_dir_name(CMIP5_FP_ATTS)
+
+    @property
+    def cmor_fp(self):
+        """Generates a CMOR file path from object attributes
+        """
+
+        return os.path.join(self.cmor_dirname, self.cmor_fname)
+
+    @property
+    def datanode_dirname(self):
+        """Generates a datanode extended CMOR directory path from object attributes
+        """
+
+        return self.get_joined_dir_name(CMIP5_DATANODE_FP_ATTS)
 
     @property
     def datanode_fp(self):
         """Generates a datanode extended CMOR file path from object attributes
         """
 
-        return self.get_joined_dir_name(CMIP5_DATANODE_FP_ATTS)
+        return os.path.join(self.datanode_dirname, self.cmor_fname)
 
 def get_cmor_fp_meta(fp):
     """Processes a CMOR style file path.
