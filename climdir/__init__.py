@@ -24,34 +24,6 @@ ATTR_KEYS = [
     'temporal_suffix'
 ]
 
-CMOR_FNAME_REQUIRED_ATTS = ['variable_name','mip_table','model','experiment','ensemble_member']
-CMOR_FNAME_OPTIONAL_ATTS = ['temporal_subset', 'geographical_info']
-
-CMOR_FP_ATTS = [
-    'activity',
-    'product',
-    'institute',
-    'model',
-    'experiment',
-    'frequency',
-    'modeling_realm',
-    'variable_name',
-    'ensemble_member',
-]
-
-DATANODE_FP_ATTS = [
-    'activity',
-    'product',
-    'institute',
-    'model',
-    'experiment',
-    'frequency',
-    'modeling_realm',
-    'mip_table',
-    'ensemble_member',
-    'version_number',
-    'variable_name',
-]
 
 class CmipFile(object):
     def __init__(self, **kwargs):
@@ -161,6 +133,36 @@ class CmipFile(object):
             [getattr(self, x) for x in optional_atts if x in self.__dict__]
         ) + '.nc'
 
+
+CMIP5_FNAME_REQUIRED_ATTS = ['variable_name','mip_table','model','experiment','ensemble_member']
+CMIP5_FNAME_OPTIONAL_ATTS = ['temporal_subset', 'geographical_info']
+
+CMIP5_FP_ATTS = [
+    'activity',
+    'product',
+    'institute',
+    'model',
+    'experiment',
+    'frequency',
+    'modeling_realm',
+    'variable_name',
+    'ensemble_member',
+]
+
+CMIP5_DATANODE_FP_ATTS = [
+    'activity',
+    'product',
+    'institute',
+    'model',
+    'experiment',
+    'frequency',
+    'modeling_realm',
+    'mip_table',
+    'ensemble_member',
+    'version_number',
+    'variable_name',
+]
+
 class Cmip5File(CmipFile):
     """Represents a Cmip5File.
 
@@ -208,18 +210,18 @@ class Cmip5File(CmipFile):
         """Generates a CMOR filename from object attributes.
         """
 
-        return self.get_joined_file_name(CMOR_FNAME_REQUIRED_ATTS, CMOR_FNAME_OPTIONAL_ATTS)
+        return self.get_joined_file_name(CMIP5_FNAME_REQUIRED_ATTS, CMIP5_FNAME_OPTIONAL_ATTS)
 
     @property
     def cmor_fp(self):
         """Generates a standard CMOR file path from object attributes
         """
 
-        return self.get_joined_dir_name(CMOR_FP_ATTS)
+        return self.get_joined_dir_name(CMIP5_FP_ATTS)
 
     @property
     def datanode_fp(self):
         """Generates a datanode extended CMOR file path from object attributes
         """
 
-        return self.get_joined_dir_name(DATANODE_FP_ATTS)
+        return self.get_joined_dir_name(CMIP5_DATANODE_FP_ATTS)

@@ -32,10 +32,13 @@ def get_cmor_fp_meta(fp):
     """
 
     # Copy metadata list then reverse to start at end of path
-    directory_meta = list(climdir.CMOR_FP_ATTS)
-    directory_meta.reverse()
+    directory_meta = list(climdir.CMIP5_FP_ATTS)
 
-    return get_cmor_dir_meta(fp, directory_meta)
+    # Prefer meta extracted from filename
+    meta = get_dir_meta(fp, directory_meta)
+    meta.update(get_cmor_fname_meta(fp))
+
+    return meta
 
 def get_datanode_fp_meta(fp):
     """Processes a datanode style file path.
@@ -59,14 +62,20 @@ def get_datanode_fp_meta(fp):
     """
 
     # Copy metadata list then reverse to start at end of path
-    directory_meta = list(climdir.DATANODE_FP_ATTS)
-    directory_meta.reverse()
+    directory_meta = list(climdir.CMIP5_DATANODE_FP_ATTS)
 
-    return get_cmor_dir_meta(fp, directory_meta)
+    # Prefer meta extracted from filename
+    meta = get_dir_meta(fp, directory_meta)
+    meta.update(get_cmor_fname_meta(fp))
 
-def get_cmor_dir_meta(fp, atts):
+    return meta
+
+def get_dir_meta(fp, atts):
     """Pop path information and map to supplied atts
     """
+
+    # Attibutes are popped from deepest directory first
+    atts.reverse()
 
     dirname, basename = os.path.split(fp)
     meta = dirname.split('/')
@@ -78,9 +87,6 @@ def get_cmor_dir_meta(fp, atts):
             res[key] = meta.pop()
     except IndexError:
         raise PathError(dirname)
-
-    # Prefer meta extracted from filename
-    res.update(get_cmor_fname_meta(basename))
 
     return res
 
@@ -118,14 +124,15 @@ def get_cmor_fname_meta(fname):
     .. _Data Reference Syntax:
        http://cmip-pcmdi.llnl.gov/cmip5/docs/cmip5_data_reference_syntax.pdf
     """
-
-    fname, ext = os.path.splitext(fname)
+    if '/' in fname:
+        fname = os.path.split(fname)[1]
+    fname = os.path.splitext(fname)[0]
     meta = fname.split('_')
 
     res = {}
 
     try:
-        for key in climdir.CMOR_FNAME_REQUIRED_ATTS:
+        for key in climdir.CMIP5_FNAME_REQUIRED_ATTS:
             res[key] = meta.pop(0)
     except IndexError:
         raise PathError(fname)
