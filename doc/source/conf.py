@@ -57,10 +57,11 @@ author = u'Basil Veerman'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
-from pkg_resources import resource_filename, get_distribution
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 # The full version, including alpha/beta/rc tags.
-release = get_distribution('cmme').version
+release = read('../../VERSION.txt')
 # The short X.Y version.
 version = release.rsplit('.', 1)[0]
 

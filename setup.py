@@ -1,11 +1,12 @@
 import os
 from setuptools import setup, find_packages
 
-__version__ = (0, 0, 1)
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
     name = "cmme",
-    version ='.'.join(str(d) for d in __version__),
+    version =read('VERSION.txt'),
     author = "Basil Veerman",
     author_email = "bveerman@uvic.ca",
     description = ("Utility for generating and parsing CMIP5 file paths"),

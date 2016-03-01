@@ -25,7 +25,7 @@ pip install git+git://https://github.com/basilveerman/cmme#egg=cmme
 
 ## Usage
 
-To Document...
+Documentation is hosted at [ReadTheDocs](http://cmme.readthedocs.org/en/latest/)
 
 ## Documentation
 
