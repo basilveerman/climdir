@@ -7,6 +7,7 @@ import os.path
 
 from .cmipfile import CmipFile
 from .path import get_dir_meta
+from .exceptions import PathError
 
 FNAME_ATTS = ['model','experiment','variable_name','ensemble_member']
 

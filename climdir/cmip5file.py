@@ -7,6 +7,7 @@ import os.path
 
 from .cmipfile import CmipFile
 from .path import get_dir_meta
+from .exceptions import PathError
 
 CMIP5_FNAME_REQUIRED_ATTS = ['variable_name','mip_table','model','experiment','ensemble_member']
 CMIP5_FNAME_OPTIONAL_ATTS = ['temporal_subset', 'geographical_info']
