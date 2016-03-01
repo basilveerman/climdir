@@ -10,5 +10,5 @@ CMIP3/5 compliant file paths generated from a metadata collection.
 """
 
 from .path import get_dir_meta
-from .cmip5file import Cmip5File, get_cmor_fp_meta, get_datanode_fp_meta, get_cmor_fname_meta
+from .cmip5file import Cmip5File
 from .cmip3file import Cmip3File

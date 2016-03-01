@@ -1,6 +1,6 @@
 import pytest
 
-from climdir import get_cmor_fp_meta, get_datanode_fp_meta, get_cmor_fname_meta
+from climdir.cmip5file import get_cmor_fp_meta, get_datanode_fp_meta, get_cmor_fname_meta
 
 def test_get_cmor_fp_meta(cmip5_cmor_fp):
     '/CMIP5/output/MOHC/HadCM3/decadal1990/day/atmos/tas/r3i2p1/file.nc'
