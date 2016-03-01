@@ -1,3 +1,6 @@
+"""Module with custom exceptions for climdir.
+"""
+
 class PathError(Exception):
     def __init__(self, path):
 

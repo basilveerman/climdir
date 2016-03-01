@@ -6,6 +6,11 @@
 Welcome to climdir's documentation!
 ===================================
 
+climdir seeks to simplify two common tasks when working with climate data:
+
+* Scrape metadata from CMIP style file paths
+* Generate CMIP style file paths from file metadata
+
 Contents:
 
 .. toctree::
