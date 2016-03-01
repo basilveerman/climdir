@@ -22,7 +22,6 @@ ATTR_KEYS = [
 
 class CmipFile(object):
     def __init__(self, **kwargs):
-        print kwargs
         self.update(**kwargs)
 
     def __repr__(self):
