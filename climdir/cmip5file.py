@@ -53,6 +53,12 @@ class Cmip5File(CmipFile):
     .. _Standard Output (CMOR Tables):
        http://cmip-pcmdi.llnl.gov/cmip5/docs/standard_output.pdf
 
+    Arguments:
+        cmor_fp (Optional[str]): A file path conforming to DRS spec.
+        datanode_fp (Optional[str]): A file path conforming to DRS spec.
+        cmor_fname (Optional[str]): A file path conforming to DRS spec.
+        **kwargs: Keyworded metadata (overrides any meta obtained from path args)
+
     """
 
     def __init__(self,
@@ -107,6 +113,7 @@ def get_cmor_fp_meta(fp):
 
         The standard CMIP5 output tool CMOR optionally writes output files
         to a directory structure mapping DRS components to directory names as:
+
             <activity>/<product>/<institute>/<model>/<experiment>/<frequency>/
             <modeling_realm>/<variable_name>/<ensemble_member>/<CMOR filename>.nc
 
@@ -136,6 +143,7 @@ def get_datanode_fp_meta(fp):
 
         It is recommended that ESGF data nodes should layout datasets
         on disk mapping DRS components to directories as:
+
             <activity>/<product>/<institute>/<model>/<experiment>/
             <frequency>/<modeling_realm>/<mip_table>/<ensemble_member>/
             <version_number>/<variable_name>/<CMOR filename>.nc

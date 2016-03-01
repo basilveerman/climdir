@@ -3,13 +3,15 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to climdir's documentation!
-===================================
+climdir
+=======
 
-climdir seeks to simplify two common tasks when working with climate data:
+.. automodule:: climdir
 
-* Scrape metadata from CMIP style file paths
-* Generate CMIP style file paths from file metadata
+Usage
+-----
+
+TODO: document usage
 
 Contents:
 
