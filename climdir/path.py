@@ -14,7 +14,7 @@ def get_dir_meta(fp, atts):
     # Attibutes are popped from deepest directory first
     atts.reverse()
 
-    dirname, basename = os.path.split(fp)
+    dirname = os.path.split(fp)[0]
     meta = dirname.split('/')
 
     res = {}
