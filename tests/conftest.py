@@ -40,3 +40,16 @@ def cmip5_meta_dict():
         'version_number': 'v20100105',
         'variable_name': 'tas',
     }
+
+@pytest.fixture(scope='module')
+def cmip3_fp():
+    return '/data/sresa2/pr/csiro_mk3_0/run1/csiro_mk3_0-sresa2-pr-run1.nc'
+
+@pytest.fixture(scope='module')
+def cmip3_meta_dict():
+    return {
+        'model': 'csiro_mk3_0',
+        'experiment': 'sresa2',
+        'ensemble_member': 'run1',
+        'variable_name': 'pr',
+    }
