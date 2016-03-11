@@ -29,10 +29,23 @@ Documentation is hosted at [ReadTheDocs](http://cmme.readthedocs.org/en/latest/)
 
 ## Documentation
 
-Generated using Sphinx
+Generated using Sphinx:
 
 ```bash
 cd doc
 sphinx-apidoc -f -o source ..
 make html
+```
+
+Documentation can be updated on gh-pages as such:
+
+```bash
+git branch -D gh-pages
+git branch -D draft
+git checkout -b draft
+git add -f doc/build/html
+git commit -am"Deploy docs on gh-pages"
+git subtree split --prefix doc/build/html -b gh-pages
+git push -f origin gh-pages:gh-pages
+git checkout master
 ```
