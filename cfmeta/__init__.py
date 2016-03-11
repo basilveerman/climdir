@@ -2,7 +2,7 @@
 
 """A Python package to interact with Climate model metadata.
 
-The ``cmme`` - Climate Model Metadata Extractor package makes it 
+The ``cfmeta`` - Climate Model Metadata Extractor package makes it
 easy to extract standard CMIP metadata from CMIP3/5 NetCDF
 filepaths and/or the metadata contained in the NetCDF file itself.
 Metadata can be manipulated with a simple interface, and

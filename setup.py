@@ -5,11 +5,11 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "cmme",
+    name = "cfmeta",
     version =read('VERSION.txt'),
     author = "Basil Veerman",
     author_email = "bveerman@uvic.ca",
-    description = ("Utility for generating and parsing CMIP5 file paths"),
+    description = ("Utility for processing CF metadata"),
     url = "http://www.pacificclimate.org/",
     packages = find_packages('.'),
     extras_require = {

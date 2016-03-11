@@ -3,14 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-cmme - Climate Model Metadata Extractor
-=======================================
+cfmeta - Climate and Forecase Metadata Processor
+================================================
 
-.. automodule:: cmme
+.. automodule:: cfmeta
 
 Basic Usage::
 
-    from cmme import Cmip5File
+    from cfmeta import Cmip5File
     cf5 = Cmip5File(cmor_fname = 'tas_Amon_HADCM3_decadal1990_r3i2p1.nc')
     cf5
     # Cmip5File(ensemble_member = 'r3i2p1', model = 'HADCM3', experiment = 'decadal1990', mip_table = 'Amon', variable_name = 'tas')
@@ -22,7 +22,7 @@ Basic Usage::
 
 Convert to Cmip3 spec::
 
-    from cmme import Cmip3File
+    from cfmeta import Cmip3File
 
     cf3 = Cmip3File(**cf5.atts)
     cf3.fname

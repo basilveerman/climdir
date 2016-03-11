@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# cmme documentation build configuration file, created by
+# cfmeta documentation build configuration file, created by
 # sphinx-quickstart on Tue Feb  9 18:51:01 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'cmme'
+project = u'cfmeta'
 copyright = u'2016, Basil Veerman'
 author = u'Basil Veerman'
 
@@ -206,7 +206,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'cmmedoc'
+htmlhelp_basename = 'cfmetadoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -228,7 +228,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'cmme.tex', u'cmme Documentation',
+    (master_doc, 'cfmeta.tex', u'cfmeta Documentation',
      u'Basil Veerman', 'manual'),
 ]
 
@@ -258,7 +258,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cmme', u'cmme Documentation',
+    (master_doc, 'cfmeta', u'cfmeta Documentation',
      [author], 1)
 ]
 
@@ -272,8 +272,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'cmme', u'cmme Documentation',
-     author, 'cmme', 'One line description of project.',
+    (master_doc, 'cfmeta', u'cfmeta Documentation',
+     author, 'cfmeta', 'One line description of project.',
      'Miscellaneous'),
 ]
 

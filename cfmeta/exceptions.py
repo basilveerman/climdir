@@ -1,4 +1,4 @@
-"""Module with custom exceptions for cmme.
+"""Module with custom exceptions for cfmeta.
 """
 
 class PathError(Exception):

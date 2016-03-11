@@ -1,7 +1,7 @@
 import pytest
 
-from cmme import Cmip3File
-from cmme.exceptions import PathError
+from cfmeta import Cmip3File
+from cfmeta.exceptions import PathError
 
 ## Cmip3File instantiation
 def test_can_inst_cmip3file_from_fp(cmip3_fp):

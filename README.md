@@ -1,31 +1,31 @@
-# cmme
+# cfmeta
 
-[![Build Status](https://travis-ci.org/pacificclimate/cmme.svg?branch=master)](https://travis-ci.org/pacificclimate/cmme)
-[![Code Health](https://landscape.io/github/pacificclimate/cmme/master/landscape.svg?style=flat)](https://landscape.io/github/pacificclimate/cmme/master)
+[![Build Status](https://travis-ci.org/pacificclimate/cfmeta.svg?branch=master)](https://travis-ci.org/pacificclimate/cfmeta)
+[![Code Health](https://landscape.io/github/pacificclimate/cfmeta/master/landscape.svg?style=flat)](https://landscape.io/github/pacificclimate/cfmeta/master)
 
-cmme is a basic utility for generating and parsing CMIP5 file paths.
+cfmeta is a basic utility for generating and parsing CMIP5 file paths.
 
 ## Requirements
 
-For basic functionality cmme has no special requirements.  The `netCDF` option requires the [netCDF4](http://unidata.github.io/netcdf4-python/) package.
+For basic functionality cfmeta has no special requirements.  The `netCDF` option requires the [netCDF4](http://unidata.github.io/netcdf4-python/) package.
 
-## Installing cmme
+## Installing cfmeta
 
-cmme can be installed from the Python package index:
+cfmeta can be installed from the Python package index:
 
 ```bash
-pip install cmme[netCDF]
+pip install cfmeta[netCDF]
 ```
 
 from Github:
 
 ```bash
-pip install git+git://https://github.com/basilveerman/cmme#egg=cmme
+pip install git+git://https://github.com/basilveerman/cfmeta#egg=cfmeta
 ```
 
 ## Usage
 
-Documentation is hosted at [ReadTheDocs](http://cmme.readthedocs.org/en/latest/)
+Documentation is hosted at [ReadTheDocs](http://cfmeta.readthedocs.org/en/latest/)
 
 ## Documentation
 
