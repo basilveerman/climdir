@@ -1,0 +1,8 @@
+climdir
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   cmme
+   setup

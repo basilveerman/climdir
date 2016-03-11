@@ -1,0 +1,54 @@
+cmme package
+============
+
+Submodules
+----------
+
+cmme.cmip3file module
+---------------------
+
+.. automodule:: cmme.cmip3file
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cmme.cmip5file module
+---------------------
+
+.. automodule:: cmme.cmip5file
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cmme.cmipfile module
+--------------------
+
+.. automodule:: cmme.cmipfile
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cmme.exceptions module
+----------------------
+
+.. automodule:: cmme.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cmme.path module
+----------------
+
+.. automodule:: cmme.path
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cmme
+    :members:
+    :undoc-members:
+    :show-inheritance:
