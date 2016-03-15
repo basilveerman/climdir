@@ -27,17 +27,13 @@ pip install git+git://https://github.com/basilveerman/cfmeta#egg=cfmeta
 
 Documentation is hosted at [ReadTheDocs](http://cfmeta.readthedocs.org/en/latest/)
 
-## Documentation
+## Contributing
 
-Generated using Sphinx:
+### Generating Documentation
 
-```bash
-cd doc
-sphinx-apidoc -f -o source ..
-make html
-```
+Generated using the `make doc` command
 
-Documentation can be updated on gh-pages as such:
+If required, documentation can be updated on gh-pages as such:
 
 ```bash
 git branch -D gh-pages
@@ -48,4 +44,18 @@ git commit -am"Deploy docs on gh-pages"
 git subtree split --prefix doc/build/html -b gh-pages
 git push -f origin gh-pages:gh-pages
 git checkout master
+```
+
+## Releasing
+
+1. Build updated api docs and commit any changes
+   ```bash
+echo <VERSION_NUMBER> > VERSION.txt
+make doc
+git add doc/source/*.rst
+git commit -m"Update api docs"
+git add VERSION.txt
+git commit -m"Bump to version <VERSION_NUMBER>"
+git tag -am"<VERSION_NUMBER>" <VERSION_NUMBER>
+git push --follow-tags
 ```

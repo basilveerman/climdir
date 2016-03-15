@@ -10,7 +10,7 @@ setup(
     author = "Basil Veerman",
     author_email = "bveerman@uvic.ca",
     license = "GPL-3.0",
-    keywords = ""
+    keywords = "",
     description = ("Utility for processing CF metadata"),
     url = "http://www.pacificclimate.org/",
     packages = find_packages('.'),
