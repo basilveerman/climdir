@@ -48,13 +48,16 @@ git checkout master
 
 ## Releasing
 
-1. Build updated api docs and commit any changes
+1. Update __version__ string in `setup.py`
+2. Build updated api docs and commit any changes
    ```bash
-echo <VERSION_NUMBER> > VERSION.txt
 make doc
 git add doc/source/*.rst
 git commit -m"Update api docs"
-git add VERSION.txt
+```
+3. Commit and tag the new version
+   ```bash
+git add setup.py
 git commit -m"Bump to version <VERSION_NUMBER>"
 git tag -am"<VERSION_NUMBER>" <VERSION_NUMBER>
 git push --follow-tags

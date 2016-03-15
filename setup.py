@@ -1,12 +1,11 @@
 import os
 from setuptools import setup, find_packages
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+__version__ = '0.0.2'
 
 setup(
     name = "cfmeta",
-    version =read('VERSION.txt'),
+    version = __version__,
     author = "Basil Veerman",
     author_email = "bveerman@uvic.ca",
     license = "GPL-3.0",
