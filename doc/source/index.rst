@@ -3,12 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-cfmeta - Climate and Forecase Metadata Processor
+cfmeta - Climate and Forecast Metadata Processor
 ================================================
 
 .. automodule:: cfmeta
 
-Basic Usage::
+
+Basic Usage
+-----------
+
+.. code-block:: python
 
     from cfmeta import Cmip5File
     cf5 = Cmip5File(cmor_fname = 'tas_Amon_HADCM3_decadal1990_r3i2p1.nc')
@@ -28,17 +32,10 @@ Convert to Cmip3 spec::
     cf3.fname
     # 'HADCM3-decadal1990-pr-r3i2p1.nc'
 
-.. Contents:
 
-.. .. toctree::
-..    :maxdepth: 2
-
-
-
-Indices and tables
-==================
+Module Reference
+----------------
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
