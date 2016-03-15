@@ -62,3 +62,8 @@ git commit -m"Bump to version <VERSION_NUMBER>"
 git tag -am"<VERSION_NUMBER>" <VERSION_NUMBER>
 git push --follow-tags
 ```
+4. Build and upload the new version
+   ```bash
+python setup.py sdist bdist_wheel
+twine upload dist/*
+```
