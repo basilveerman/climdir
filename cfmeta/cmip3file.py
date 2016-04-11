@@ -22,9 +22,7 @@ class Cmip3File(CmipFile):
     """Represents a Cmip3File.
 
     Arguments:
-        cmor_fp (Optional[str]): A file path conforming to DRS spec.
-        datanode_fp (Optional[str]): A file path conforming to DRS spec.
-        cmor_fname (Optional[str]): A file path conforming to DRS spec.
+        fp (Optional[str]): A file path conforming to CMIP3 spec.
         **kwargs: Keyworded metadata (overrides any meta obtained from path args)
 
     """
