@@ -21,8 +21,25 @@ ATTR_KEYS = [
 
 
 class CmipFile(object):
-    def __init__(self, **kwargs):
-        self.update(**kwargs)
+    """Represents a CmipFile.
+
+    Provides common functionality for children.
+
+    Arguments:
+        nc_fp (Optional[str]): A netCDF file path to pull attributes from internal metadata.
+        **kwargs: Keyworded metadata (overrides any meta obtained from path args)
+    """
+
+    def __init__(self, nc = None, **kwargs):
+        """Initializes a CmipFile
+
+        """
+        meta = {}
+        if nc:
+            meta.update(get_nc_attrs(nc))
+
+        meta.update(kwargs)
+        self.update(**meta)
 
     def __repr__(self):
         s = self.__class__.__name__ + "("
@@ -131,3 +148,48 @@ class CmipFile(object):
             [getattr(self, x) for x in optional_atts if x in self.__dict__]
         ) + '.nc'
 
+def get_nc_attrs(nc):
+    """Gets netCDF file metadata attributes.
+
+    Arguments:
+        nc (netCDF4.Dataset): an open NetCDF4 Dataset to pull attributes from.
+
+    Returns:
+        dict: Metadata as extracted from the netCDF file.
+    """
+
+    meta = {
+        'experiment': nc.experiment_id,
+        'frequency': nc.frequency,
+        'institute': nc.institute_id,
+        'model': nc.model_id,
+        'modeling_realm': nc.modeling_realm,
+        'ensemble_member': 'r{}i{}p{}'.format(nc.realization, nc.initialization_method, nc.physics_version),
+    }
+
+    variable_name = get_var_name(nc)
+    if variable_name:
+        meta.update({'variable_name': variable_name})
+
+    return meta
+
+def get_var_name(nc):
+    """Guesses the variable_name of an open NetCDF file
+    """
+
+    non_variable_names = [
+        'lat',
+        'lat_bnds',
+        'lon',
+        'lon_bnds',
+        'time',
+        'latitude',
+        'longitude',
+        'bnds'
+    ]
+
+    _vars = set(nc.variables.keys())
+    _vars.difference_update(set(non_variable_names))
+    if len(_vars) == 1:
+        return _vars.pop()
+    return None

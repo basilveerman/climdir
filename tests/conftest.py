@@ -1,6 +1,10 @@
 import os
 import pytest
 
+from netCDF4 import Dataset
+
+from util import get_base_netcdf, nc_add_variable
+
 @pytest.fixture(scope='module')
 def cmip5_cmor_fp():
     return '/CMIP5/output/MOHC/HadCM3/decadal1990/day/atmos/tas/r3i2p1/tas_day_HadCM3_decadal1990_r3i2p1_199001-199012.nc'
@@ -53,3 +57,23 @@ def cmip3_meta_dict():
         'ensemble_member': 'run1',
         'variable_name': 'pr',
     }
+
+@pytest.fixture(scope="session")
+def metadata_complete_netcdf(request):
+    shape = {'time': 4, 'lon': 4, 'lat': 4}
+    nc = get_base_netcdf(shape)
+    nc_add_variable(nc, 'var01', shape)
+    nc.experiment_id = 'rcp26'
+    nc.frequency = 'day'
+    nc.institute_id = 'UKMO'
+    nc.model_id = 'HadCM3'
+    nc.modeling_realm = 'atmos'
+    nc.realization = 1
+    nc.initialization_method = 1
+    nc.physics_version = 1
+
+    def teardown():
+        nc.close()
+    request.addfinalizer(teardown)
+
+    return nc

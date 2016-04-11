@@ -13,3 +13,4 @@ CMIP3/5 compliant file paths generated from a metadata collection.
 from .path import get_dir_meta
 from .cmip5file import Cmip5File
 from .cmip3file import Cmip3File
+from .cmipfile import CmipFile
