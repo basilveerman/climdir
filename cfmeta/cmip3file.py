@@ -10,6 +10,7 @@ from .path import get_dir_meta
 from .exceptions import PathError
 
 FNAME_ATTS = ['model','experiment','variable_name','ensemble_member']
+FNAME_OPTIONAL_ATTS = ['temporal_subset']
 
 DIR_ATTS = [
     'experiment',
@@ -53,7 +54,7 @@ class Cmip3File(CmipFile):
         """Generates a CMOR filename from object attributes.
         """
 
-        return self.get_joined_file_name(FNAME_ATTS)
+        return self.get_joined_file_name(FNAME_ATTS, FNAME_OPTIONAL_ATTS)
 
     @property
     def dirname(self):
