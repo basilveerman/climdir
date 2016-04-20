@@ -21,3 +21,8 @@ def test_can_generate_cmip3_fname(cmip3_fp):
 def test_can_generate_cmip3_fp(cmip3_fp):
     cf = Cmip3File(fp = cmip3_fp)
     assert cf.fp == 'sresa2/pr/csiro_mk3_0/run1/csiro_mk3_0-sresa2-pr-run1.nc'
+
+def test_add_optional_atts(cmip3_fp):
+    cf = Cmip3File(fp = cmip3_fp)
+    cf.update(temporal_subset = '1961-1990')
+    assert cf.fname == 'csiro_mk3_0-sresa2-pr-run1-1961-1990.nc'

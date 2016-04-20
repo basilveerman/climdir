@@ -41,12 +41,15 @@ class Cmip3File(CmipFile):
 
         super(Cmip3File, self).__init__(**meta)
 
-    def get_joined_file_name(self, atts):
+    def get_joined_file_name(self, atts, optional_atts = None):
         """Returns a joined path populated with the supplied attribute names
 
         """
 
-        return '-'.join([getattr(self, x) for x in atts]) + '.nc'
+        return '-'.join(
+            [getattr(self, x) for x in atts] +
+            [getattr(self, x) for x in optional_atts if x in self.__dict__]
+        ) + '.nc'
 
     # Path generators
     @property
